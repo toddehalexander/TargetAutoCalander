@@ -2,11 +2,13 @@
 
 This application helps Target employees parse their work schedules and create ICS files for easy import into calendar applications.
 
-## Example GIF
+## Usage GIF
 ![Usage GIF](https://github.com/toddehalexander/TargetAutoCalander/blob/main/assets/use.gif)
 
-## Example ICS file
-![ICS File](https://github.com/toddehalexander/TargetAutoCalander/blob/main/assets/ICS_Example.png)
+
+## [Example ICS file output (click to view file)](https://github.com/toddehalexander/TargetAutoCalander/blob/main/sample_output/work_schedule_Jun09-Jun15_2024.ics "Example Output")
+![ICS File](https://github.com/toddehalexander/TargetAutoCalander/blob/main/assets/ICS_Example.png) 
+
 
 ## Prerequisites
 
