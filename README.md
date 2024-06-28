@@ -6,7 +6,7 @@ This application helps Target employees parse their work schedules and create IC
 ![Usage GIF](https://github.com/toddehalexander/TargetAutoCalander/blob/main/assets/use.gif)
 
 ## Example ICS file
-![ICS File]()
+![ICS File](https://github.com/toddehalexander/TargetAutoCalander/blob/main/assets/ICS_Example.png)
 
 ## Prerequisites
 
