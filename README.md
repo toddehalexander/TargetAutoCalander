@@ -2,6 +2,12 @@
 
 This application helps Target employees parse their work schedules and create ICS files for easy import into calendar applications.
 
+## Example GIF
+![Usage GIF](https://github.com/toddehalexander/TargetAutoCalander/blob/main/assets/use.gif)
+
+## Example ICS file
+![ICS File]()
+
 ## Prerequisites
 
 - Python 3.7 or higher
