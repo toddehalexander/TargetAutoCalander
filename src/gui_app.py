@@ -45,7 +45,7 @@ class ScheduleParserGUI(QWidget):
         layout = QVBoxLayout()
         layout.setSpacing(15)
 
-        self.label = QLabel('Paste your schedule text below (via <a href="https://mytime.target.com/schedule">https://mytime.target.com/schedule</a>):')
+        self.label = QLabel('Paste your schedule text below (via <a href="https://mytime.target.com/schedule">https://mytime.target.com/schedule</a>) <br><br> CNTRL + A to select all, CNTRL + C to copy <br><br> CNTRL + V to paste here:')
         self.label.setOpenExternalLinks(True)
         layout.addWidget(self.label)
 
