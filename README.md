@@ -23,7 +23,7 @@ This will install the necessary Python packages, including PyQt5.
 
 2. Navigate to the directory containing the script.
 
-3. Run the application by executing: ```python3 main.py```
+3. Run the application by executing: ```python main.py```
 
 4. The application window will open.
 
