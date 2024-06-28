@@ -1,5 +1,10 @@
 import re
 from datetime import datetime, time, timedelta
+from ics import Calendar, Event
+import pytz
+
+# Define the Pacific Time Zone
+pacific_tz = pytz.timezone('US/Pacific')
 
 def parse_schedule(schedule_text):
     lines = schedule_text.split('\n')
@@ -33,6 +38,7 @@ def parse_schedule(schedule_text):
             minute = int(time_match.group(2))
             am_pm = time_match.group(3)
             
+            # Convert to 24-hour format
             if am_pm == 'PM' and hour != 12:
                 hour += 12
             elif am_pm == 'AM' and hour == 12:
@@ -42,15 +48,15 @@ def parse_schedule(schedule_text):
             
             if 'start_time' not in temp_shift:
                 temp_shift = {
-                    'date': datetime(current_year, current_month, current_day).date(),
+                    'date': pacific_tz.localize(datetime(current_year, current_month, current_day)),
                     'start_time': shift_time
                 }
             else:
                 temp_shift['end_time'] = shift_time
                 # Calculate shift duration
-                start_datetime = datetime.combine(temp_shift['date'], temp_shift['start_time'])
-                end_datetime = datetime.combine(temp_shift['date'], shift_time)
-                if end_datetime < start_datetime:
+                start_datetime = temp_shift['date'].replace(hour=temp_shift['start_time'].hour, minute=temp_shift['start_time'].minute)
+                end_datetime = temp_shift['date'].replace(hour=shift_time.hour, minute=shift_time.minute)
+                if end_datetime <= start_datetime:
                     end_datetime += timedelta(days=1)
                 duration = end_datetime - start_datetime
                 temp_shift['duration'] = duration
@@ -67,6 +73,45 @@ def parse_schedule(schedule_text):
                 temp_shift = {}
 
     return shifts
+
+def get_schedule_range(shifts):
+    if not shifts:
+        return None, None
+    start_date = min(shift['date'] for shift in shifts)
+    end_date = max(shift['date'] for shift in shifts)
+    return start_date, end_date
+
+def create_ics_file(shifts):
+    if not shifts:
+        print("No shifts to create a calendar for.")
+        return
+
+    cal = Calendar()
+    start_date, end_date = get_schedule_range(shifts)
+    year = start_date.year
+
+    for shift in shifts:
+        event = Event()
+        event.name = f"Shift - {shift['role']}"
+        
+        # Create datetime objects for start and end times
+        start_datetime = shift['date'].replace(hour=shift['start_time'].hour, minute=shift['start_time'].minute)
+        end_datetime = shift['date'].replace(hour=shift['end_time'].hour, minute=shift['end_time'].minute)
+        
+        # Adjust end time if it's on the next day
+        if end_datetime <= start_datetime:
+            end_datetime += timedelta(days=1)
+        
+        event.begin = start_datetime
+        event.end = end_datetime
+        
+        event.description = f"Role: {shift['role']}\nDuration: {shift['duration']}"
+        cal.events.add(event)
+
+    filename = f"work_schedule_{start_date.strftime('%b%d')}-{end_date.strftime('%b%d')}_{year}.ics"
+    with open(filename, 'w') as f:
+        f.write(str(cal))
+    print(f"ICS file '{filename}' has been created.")
 
 def main():
     print("Please paste your schedule text below.")
@@ -86,8 +131,12 @@ def main():
     print("\nParsed shifts:")
     for shift in parsed_shifts:
         duration_hours = shift['duration'].total_seconds() / 3600
-        print(f"Date: {shift['date']}, Start Time: {shift['start_time']}, End Time: {shift['end_time']}, "
+        print(f"Date: {shift['date'].date()}, Start Time: {shift['start_time'].strftime('%H:%M')}, "
+              f"End Time: {shift['end_time'].strftime('%H:%M')}, "
               f"Role: {shift['role']}, Duration: ({duration_hours:.2f} hrs)")
+
+    # Create ICS file
+    create_ics_file(parsed_shifts)
 
 if __name__ == '__main__':
     main()
