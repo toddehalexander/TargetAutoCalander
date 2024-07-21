@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Schedule Parser</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Work Schedule Parser</h1>
+        <p>Paste your schedule text below (via <a href="https://mytime.target.com/schedule" target="_blank">https://mytime.target.com/schedule</a>)</p>
+        <p>CNTRL + A to select all, CNTRL + C to copy</p>
+        <p>CNTRL + V to paste here:</p>
+        <textarea id="scheduleText" placeholder="Paste your schedule here..."></textarea>
+        <button id="parseButton">Parse Schedule and Create ICS</button>
+        <div id="result"></div>
+        <div id="links" class="hidden">
+            <p><a href="https://calendar.google.com/calendar" target="_blank">Open Google Calendar Landing Page</a></p>
+            <p><a href="https://calendar.google.com/calendar/r/settings/export" target="_blank">Go to Import (Google Calendar)</a></p>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
