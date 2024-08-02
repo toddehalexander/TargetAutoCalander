@@ -8,7 +8,7 @@ https://toddehalexander.github.io/TargetAutoCalander/
 In addition to the Python-based desktop application, this tool is now also available as a web application. You can use it directly in your browser without any installation. Just visit the web page, paste your schedule, and download the ICS file.
 
 ## Web Usage GIF
-![Web Usage GIF]([url](https://github.com/toddehalexander/TargetAutoCalander/blob/main/assets/web_use.gif))
+![Web Usage GIF](https://github.com/toddehalexander/TargetAutoCalander/blob/main/assets/web_use.gif)
 
 ## Python Usage GIF
 ![Python Usage GIF](https://github.com/toddehalexander/TargetAutoCalander/blob/main/assets/python_use.gif)
